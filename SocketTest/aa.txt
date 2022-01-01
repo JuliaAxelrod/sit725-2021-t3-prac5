@@ -1,0 +1,16 @@
+ Volume in drive C is OS
+ Volume Serial Number is AC07-F09E
+
+ Directory of C:\Users\Julia\sit725-2021-t3-prac4\SocketTest\node_modules
+
+19/12/2021  10:44 PM    <DIR>          socket.io
+               0 File(s)              0 bytes
+
+ Directory of C:\Users\Julia\sit725-2021-t3-prac4\SocketTest\server\node_modules
+
+10/12/2021  11:59 PM    <DIR>          socket.io
+               0 File(s)              0 bytes
+
+     Total Files Listed:
+               0 File(s)              0 bytes
+               2 Dir(s)  384,747,429,888 bytes free
