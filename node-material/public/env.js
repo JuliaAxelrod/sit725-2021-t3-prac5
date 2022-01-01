@@ -70,7 +70,7 @@ $(document).ready(function(){
         $('#project-id').val('');
         $('#project-title').val('');
         $('#project-description').val('');
-        $('#project-img').val('');
+        $('#project-image').val('');
      
 
         window.location.reload(true);
