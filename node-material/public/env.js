@@ -34,16 +34,13 @@ $(document).ready(function(){
   console.log('Ready');
 
   // Fixed typo, side nav menu works now
+  // Moved datepicker init to jQuery
   $('.sidenav').sidenav(); 
   $('.modal').modal();
-
-// Moved datepicker init to jQuery
-  $(document).ready(function(){
-    $('.datepicker').datepicker();
-  });
-
+  $('.datepicker').datepicker();
 
   $('#save-project').click((e) => {
+    // Validation TBA
   const data =  {
        projectID: $('#project-id').val(),
        title: $('#project-title').val(),
@@ -65,19 +62,19 @@ $(document).ready(function(){
       };
 
       $.ajax (settings).done(function(response){
-        console.log(response);
+         console.log(response);
         $('#projects-list').append(projectCard(data));
-        $('.modal').closeModal({dismissable: true});
-       var instance = M.Modal.getInstance($('.modal'));
-        instance.close();
-        instance.reload();
-        $(document.location).reload();
         $('.modal').modal('close');
-        $('#project-id').val(''),
-        $('#project-title').val(''),
-        $('#project-description').val('');
-        $('#project-description').val('');
       });
+
+        $('#project-id').val('');
+        $('#project-title').val('');
+        $('#project-description').val('');
+        $('#project-img').val('');
+     
+
+        window.location.reload(true);
+    
 
     });
 
