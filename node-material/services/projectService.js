@@ -4,7 +4,7 @@ let projectCollection;
 
 setTimeout(() => {
     projectCollection = dbo.getDB().collection ("projects");
-},2000);
+},5000);
 
 const getAllProjects = (res) => {
     projectCollection.find().toArray((err,result) => {
