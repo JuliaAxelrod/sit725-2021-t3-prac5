@@ -119,10 +119,15 @@
                           <label for="project-title">Project Title</label>
 
                           </div>
-
+<!-- 
                           <div class="input-field  col s12">
                             <input id="project-description" type="text"  />
                             <label for="project-description">Project Descripton</label>
+      
+                          </div> -->
+                          <div class="input-field  col s12">
+                            <input id="project-info" type="text"  />
+                            <label for="project-info">Project Descripton</label>
       
                           </div>
 
@@ -160,8 +165,8 @@
       // });
 
       // try to refresh after new entry was committed to the DB by the server:
-      var evtSource = new EventSource("http://localhost:3000/subscribe");
-      evtSource.onmessage = function () { myPageRefresh() };
+      // var evtSource = new EventSource("http://localhost:3000/subscribe");
+      // evtSource.onmessage = function () { myPageRefresh() };
     </script>
 
     <!-- socket IO Served by the server -->

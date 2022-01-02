@@ -1,105 +1,109 @@
-const testButtonFunction=()=>{
-  alert('Thank you for clicking')
-}
-
-// connect to the socket
-
 let socket = io();
 
-
 socket.on('number', (msg) => {
-    console.log('Random number: ' + msg);
+  console.log('Random number: ' + msg);
 })
 
-function projectCard(project){
+
+function projectCard(project) {
   return `
-<div class="col s6 m4">
-  <div class="card">
-    <div class="card-image">
-      <img src="${project.img ? project.img : 'assets/Iceberg_7292.JPG'}">
-      <span class="card-title">${project.title}</span>
+  <div class="col s6 m4 l3 xl2" id="project-id-${project.projectID}">
+    <div class="card">
+      <div class="card-image">
+        <img src="${project.img ? project.img : 'assets/ale.jpg'}">
+        <span class="card-title">${project.title}</span>
+      </div>
+      <div class="card-content">
+        <p>${project.info}</p>
+      </div>
+      <div class="card-action">
+        <a href="project.html?pid=${project.projectID}">This is a link</a>
+        <a class="btn waves-effect waves-light" onClick="deleteProject(${project.projectID})"><i class="material-icons">delete</i></a>
+      </div>
     </div>
-    <div class="card-content">
-      <p>${project.info}</p>
-    </div>
-    <div class="card-action">
-      <a href="#">${project.projectID}</a>
-    </div>
-  </div>
-</div>` ;
+  </div>`;
 }
 
-// console.log('test');
-$(document).ready(function(){
-  console.log('Ready');
 
-  // Fixed typo, side nav menu works now
-  // Moved datepicker init to jQuery
-  $('.sidenav').sidenav(); 
-  $('.modal').modal();
-  $('.datepicker').datepicker();
-
-  $('#save-project').click((e) => {
-    // Validation TBA
-  const data =  {
-       projectID: $('#project-id').val(),
-       title: $('#project-title').val(),
-       info: $('#project-description').val(),
-       img: $('#project-image').val(),
+function deleteProject(projectId) {
+  var settings = {
+    "url": `/api/projects/${projectId}`,
+    "method": "DELETE",
+    "timeout": 0,
+  };
   
-     }
-    //  alert(JSON.stringify(data));
-    //   alert("Tada"); 
+  $.ajax(settings).done(function (response) {
+    alert(`#project-id-${projectId}`);
+      $(`#project-id-${projectId}`).remove();
+  });
+}
 
-      var settings = {
-        "url": "/projects",
-        "method": "POST",
-        "timeout": 0,
-        "headers": {
-          "Content-Type": "application/json"
-        },
-        "data": JSON.stringify(data),
-      };
+function getBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
 
-      $.ajax (settings).done(function(response){
-         console.log(response);
-        $('#projects-list').append(projectCard(data));
-        $('.modal').modal('close');
-      });
-
-        $('#project-id').val('');
-        $('#project-title').val('');
-        $('#project-description').val('');
-        $('#project-image').val('');
-     
-
-        window.location.reload(true);
-    
-
-    });
+}
 
 
-  //bind the button
-  // $('#testButton').click(testButtonFunction)
+function createProject() {
+  let img = document.querySelector('#project-file').files[0];;
+  if (img) {
+    getBase64(img).then(
+      d => {
+        const project = {
+          "projectID": $('#project-id').val(),
+          "title": $('#project-title').val(),
+          "info": $('#project-info').val(),
+          "img": d
+        };
+        var settings = {
+          "url": "/api/projects",
+          "method": "POST",
+          "timeout": 0,
+          "headers": {
+            "Content-Type": "application/json"
+          },
+          "data": JSON.stringify(project),
+        };
+
+        $.ajax(settings).done(function (response) {
+          $('#projects-list').append(projectCard(project))
+          $('#project-id').val('');
+          $('#project-title').val('');
+          $('#project-info').val('');
+          $('#project-file').val('');
+          $('.modal').modal('close');
+          console.log(response);
+        });
+      }
+    )
+  }
+
+}
+
+
+$(document).ready(function () {
+  console.log('Ready')
+
+  $('.sidenav').sidenav();
+  $('.datepicker').datepicker();
+  $('.modal').modal();
+
+  $('#insert-project').click(() => {
+    createProject();
+  });
+
 
   //test get call
-  // $.get('/test?user_name="Fantastic User"',(result)=>{
-  //   console.log(result)
-  
-  // Add function to output allprojects on cards - for HTML 
-
- 
-
-  // append all projects to project list
-  $.get('/projects', (result) => {
+  $.get('/api/projects', (result) => {
     for (let p of result) {
+      $('#projects-list').append(projectCard(p))
+    }
 
-    $('#projects-list').append(projectCard(p));
-
-    };
-    console.log(result) 
-  
-    });
-
-}) 
-
+    console.log(result)
+  })
+})
