@@ -10,7 +10,7 @@ function projectCard(project) {
   <div class="col s6 m4 l3 xl2" id="project-id-${project.projectID}">
     <div class="card">
       <div class="card-image">
-        <img src="${project.img ? project.img : 'assets/ale.jpg'}">
+        <img src="${project.img ? project.img : 'assets/Iceberg_7292.JPG'}">
         <span class="card-title">${project.title}</span>
       </div>
       <div class="card-content">
