@@ -63,5 +63,10 @@ In styles .test-div div style was added for presentation of 20 projects in table
 - Upload to gitHub was very chaotic, as I was unsure how to add a folder, I may need to re-do the upload.
 - Added wireframe design file Wireframe for Antarctica website project SIT725 Prac 3.pdf
 
+Week4 - MVC, The model View controller.
+In the main version, Modal close, assign blank values and page reload after modal close were fixed.
+Also, I created a branch - W4MVC - this is the first branch.
+This task is to add MVC to the new branch.
+
 Kind Regards,
 Julia
